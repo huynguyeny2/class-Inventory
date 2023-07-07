@@ -32,9 +32,15 @@ class Car_inventory:
         self.mainLoop()
         
     def createCarfrominput (self):                   
-        make = input('Please enter the make of the car: ')
-        model = input('Please enter the model of the car: ')
-        color = input('Please enter the color of the car: ')
+        make = input('Please provide the make of the car (enter to cancel): ')
+        if make == "":
+            return
+        model = input('Please provide the model of the car (enter to cancel): ')
+        if model == "":
+            return
+        color = input('Please provide the color of the car (enter to cancel): ')
+        if color == "":
+            return
         year = None
         while year is None:
             tempyear= None
@@ -67,7 +73,7 @@ class Car_inventory:
             tempindex= None
             try:
                 tempindex = int(input(prompt))
-                if 0 < tempindex < len(self.cars):
+                if tempindex < len(self.cars):
                     index = tempindex
                 else:
                     print('Please enter an existing position.')
@@ -76,21 +82,24 @@ class Car_inventory:
         return index
         
     def addCar (self):
-        print ('- - - - - - - A D D   C A R - - - - - - -')
+        print ('- - - (>^.^)> - - - A D D   C A R - - - <(^.^<) - - -\n')
         print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n" +
                "Please enter the following information to add a car.")
         car= self.createCarfrominput()
-        self.cars.append(car)
+        if car != None:
+            self.cars.append(car)
         
     def removeCar(self):
-        print ('- - - - - - - R E M O V E   C A R - - - - - - -')
+        print ('- - - T.T - - - R E M O V E   C A R - - - T.T - - -')
         print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n"
                'Enter a value from 0 to ' + str(len(self.cars)-1) + 
                ", with the first car starting at position 0.")
-        index = (self.validIndex('Remove car at the position...:')+1)
-        carToremove = self.cars[index]
-        self.cars.remove(carToremove)
-        
+        print('To quit, enter a number that is less than 0.')
+        index = self.validIndex('Remove car at the position...:')
+        if index >= 0:
+            carToremove = self.cars[index]
+            self.cars.remove(carToremove)
+                
         
         # try:
         #     if len(self.cars) == 0:
@@ -105,13 +114,15 @@ class Car_inventory:
         #     print ('Please enter a valid number.')
                 
     def updateCar(self):
-        print ('- - - - - - - U P D A T E   C A R - - - - - - -')
+        print ('- - - O.o - - - U P D A T E   C A R - - - o.O - - -')
         print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n"
                'Enter a value from 0 to ' + str(len(self.cars)-1) + 
                ", with first car starting at position 0.")
+        print('To quit, enter a number that is less than 0.')
         index = self.validIndex('Update car at the position...:')
-        self.cars[index] = self.createCarfrominput()
-        
+        if index >= 0:
+            self.cars[index] = self.createCarfrominput()
+       
         
         # try:
         #     if len(self.cars) == 0:
@@ -131,11 +142,11 @@ class Car_inventory:
         if len(self.cars) == 0:
             print ('Inventory is empty.')
         else: 
-            print ('- - - - - - - I N V E N T O R Y - - - - - - -\n')
+            print ('- - - OwO - - - I N V E N T O R Y - - - OwO - - -\n')
             print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n")
             for pos,car in enumerate(self.cars):
                 print (str(pos) + " : " + str(car) + "\n")
-            print ('- - - - - - - I N V E N T O R Y - - - - - - -\n')
+            print ('- - - OwO - - - I N V E N T O R Y - - - OwO - - -\n')
 
     def mainLoop (self):
         selection = 0
