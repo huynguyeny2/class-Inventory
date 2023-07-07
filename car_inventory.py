@@ -15,14 +15,20 @@ class Car:
         self.mileage=mileage
         
     def __str__(self):
-        return ('Make: %s, Mo0del: %s, Color: %s, Year: %d, Mileage: %d.'%(self.make, self.model, self.color, self.year, self.mileage))
+        return ('\n\t Make   : %s\n\t Model  : %s\n\t Color  : %s\n\t Year   : %d\n\t Mileage: %d'
+                %(self.make, self.model, self.color, self.year, self.mileage))
         
     
             
 class Car_inventory:
     def __init__(self):
-        self.cars= [Car('Honda','CRZ', 'Grey', 2015, 2000), Car('Toyota','Camry', 'Grey', 2015, 20000), 
-                    Car('Kia','Soul', 'Green', 2015, 40000)]
+        self.cars= [Car('Honda','CRZ', 'Grey', 2015, 100000), Car('Toyota','Camry', 'Grey', 2015, 20000), 
+                    Car('Kia','Soul', 'Green', 2015, 40000), Car('Toyota','Corolla ', 'Silver', 2015, 200000),
+                    Car('Honda','CRZ', 'Black', 2018, 100000), Car('Toyota','RAV4', 'Pink', 2020, 20000), 
+                    Car('Kia','Soul', 'Blue', 2019, 40000), Car('Toyota','Corolla ', 'Silver', 2015, 200000),
+                    Car('Honda','CRV', 'Black', 2010, 400000), Car('Toyota','Highlander', 'White', 2018, 80000),
+                    Car('Honda','CRZ', 'Black', 2018, 100000), Car('Toyota','RAV4', 'Yellow', 2021, 40000), 
+                    Car('Dodge','Charger', 'Black', 2023, 4000), Car('Toyota','Corolla ', 'White', 2012, 300000)]
         self.mainLoop()
         
     def createCarfrominput (self):                   
@@ -70,15 +76,21 @@ class Car_inventory:
         return index
         
     def addCar (self):
-        print ('- - - - - A D D   C A R - - - - -')
+        print ('- - - - - - - A D D   C A R - - - - - - -')
+        print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n" +
+               "Please enter the following information to add a car.")
         car= self.createCarfrominput()
         self.cars.append(car)
         
     def removeCar(self):
-        print ('- - - - - R E M O V E   C A R - - - - -')
-        index = self.validIndex('Remove car at the position...:')
+        print ('- - - - - - - R E M O V E   C A R - - - - - - -')
+        print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n"
+               'Enter a value from 0 to ' + str(len(self.cars)-1) + 
+               ", with the first car starting at position 0.")
+        index = (self.validIndex('Remove car at the position...:')+1)
         carToremove = self.cars[index]
         self.cars.remove(carToremove)
+        
         
         # try:
         #     if len(self.cars) == 0:
@@ -93,9 +105,13 @@ class Car_inventory:
         #     print ('Please enter a valid number.')
                 
     def updateCar(self):
-        print ('- - - - - U P D A T E   C A R - - - - -')
+        print ('- - - - - - - U P D A T E   C A R - - - - - - -')
+        print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n"
+               'Enter a value from 0 to ' + str(len(self.cars)-1) + 
+               ", with first car starting at position 0.")
         index = self.validIndex('Update car at the position...:')
         self.cars[index] = self.createCarfrominput()
+        
         
         # try:
         #     if len(self.cars) == 0:
@@ -115,10 +131,11 @@ class Car_inventory:
         if len(self.cars) == 0:
             print ('Inventory is empty.')
         else: 
-            print ('- - - - - I N V E N T O R Y - - - - -\n')
+            print ('- - - - - - - I N V E N T O R Y - - - - - - -\n')
+            print ('Currently, there are ' + str(len(self.cars)) + " cars in inventory.\n")
             for pos,car in enumerate(self.cars):
                 print (str(pos) + " : " + str(car) + "\n")
-
+            print ('- - - - - - - I N V E N T O R Y - - - - - - -\n')
 
     def mainLoop (self):
         selection = 0
@@ -131,6 +148,7 @@ class Car_inventory:
             print (' 5 = End') 
             
             selection = input('Please enter an option from 1 to 5...:')
+            print()
             if selection == '1':
                 self.addCar()
             elif selection == '2':
@@ -141,6 +159,6 @@ class Car_inventory:
                 self.viewInventory()
             else:
                 break
-
+        
 
 Car_inventory()
